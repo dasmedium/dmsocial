@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
+const _ = require("lodash");
 
 // Load Validation
 const validateProfileInput = require("../../validation/profile");
@@ -297,6 +298,7 @@ router.get(
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
+        // Finds the item by id
         const expIndex = profile.experience
           .map(item => item._id.toString())
           .indexOf(req.params.exp_id);
@@ -304,6 +306,51 @@ router.get(
         const myExp = profile.experience[expIndex];
 
         res.json(myExp);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   Post a change to api/profile/experience/:exp_id
+// @desc    Update a single experience credential
+// @access  Private
+router.post(
+  "/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // Adding Validation
+
+    const { errors, isValid } = validateExperienceInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      // Return any errors  with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Finds the item by id
+        const expIndex = profile.experience
+          .map(item => item._id.toString())
+          .indexOf(req.params.exp_id);
+        // Define our values
+        const newExp = {
+          title: req.body.title,
+          company: req.body.company,
+          location: req.body.location,
+          from: req.body.from,
+          to: req.body.to,
+          current: req.body.current,
+          description: req.body.description
+        };
+
+        const myExp = profile.experience[expIndex];
+
+        // Reassign values
+        _.assign(myExp, newExp);
+        // Save to database
+        profile.save().then(() => res.json(newExp));
       })
       .catch(err => res.status(404).json(err));
   }
@@ -325,6 +372,51 @@ router.get(
         const myEdu = profile.education[eduIndex];
 
         res.json(myEdu);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   Post a change to api/profile/education/:edu_id
+// @desc    Update a single education credential
+// @access  Private
+router.post(
+  "/education/:edu_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // Adding Validation
+
+    const { errors, isValid } = validateEducationInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      // Return any errors  with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Finds the item by id
+        const eduIndex = profile.education
+          .map(item => item._id.toString())
+          .indexOf(req.params.edu_id);
+        // Define our values
+        const newEdu = {
+          school: req.body.school,
+          degree: req.body.degree,
+          fieldofstudy: req.body.fieldofstudy,
+          from: req.body.from,
+          to: req.body.to,
+          current: req.body.current,
+          description: req.body.description
+        };
+
+        const myEdu = profile.education[eduIndex];
+
+        // Reassign values
+        _.assign(myEdu, newEdu);
+        // Save to database
+        profile.save().then(() => res.json(newEdu));
       })
       .catch(err => res.status(404).json(err));
   }
