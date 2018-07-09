@@ -40,7 +40,7 @@ router.get(
 );
 
 // @route   GET api/profile/all
-// @desc    Get profile by handle
+// @desc    Get all profiles
 // @access  Public
 router.get("/all", (req, res) => {
   const errors = {};
@@ -285,6 +285,48 @@ router.delete(
         res.json({ success: true })
       );
     });
+  }
+);
+
+// @route   Get api/profile/experience/:exp_id
+// @desc    Get a single experience by Id
+// @access  Private
+router.get(
+  "/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        const expIndex = profile.experience
+          .map(item => item._id.toString())
+          .indexOf(req.params.exp_id);
+
+        const myExp = profile.experience[expIndex];
+
+        res.json(myExp);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   Get api/profile/education/:exp_id
+// @desc    Get a single experience by Id
+// @access  Private
+router.get(
+  "/education/:edu_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        const eduIndex = profile.education
+          .map(item => item._id.toString())
+          .indexOf(req.params.edu_id);
+
+        const myEdu = profile.education[eduIndex];
+
+        res.json(myEdu);
+      })
+      .catch(err => res.status(404).json(err));
   }
 );
 
