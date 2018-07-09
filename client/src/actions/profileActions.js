@@ -6,7 +6,9 @@ import {
   PROFILE_LOADING,
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_EXPERIENCE,
+  GET_EDUCATION
 } from "./types";
 
 // Get current profile
@@ -112,6 +114,42 @@ export const deleteExperience = id => dispatch => {
     .then(res =>
       dispatch({
         type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Edit Experience
+export const editExperience = (id, expData) => dispatch => {
+  axios
+    .post(`/api/profile/experience/${id}`, expData)
+    .then(res =>
+      dispatch({
+        type: GET_EXPERIENCE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Edit Education
+export const editEducation = (id, eduData) => dispatch => {
+  axios
+    .post(`/api/profile/education/${id}`, eduData)
+    .then(res =>
+      dispatch({
+        type: GET_EDUCATION,
         payload: res.data
       })
     )
