@@ -1,6 +1,8 @@
 import {
   GET_PROFILE,
   GET_PROFILES,
+  GET_EXPERIENCE,
+  GET_EDUCATION,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE
 } from "../actions/types";
@@ -29,6 +31,10 @@ export default function(state = initialState, action) {
         ...state,
         profiles: action.payload,
         loading: false
+      };
+    case GET_EXPERIENCE:
+      return {
+        ...state
       };
     case CLEAR_CURRENT_PROFILE:
       return {
