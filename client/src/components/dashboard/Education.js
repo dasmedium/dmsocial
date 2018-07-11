@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { deleteEducation } from "../../actions/profileActions";
@@ -21,6 +22,11 @@ class Education extends Component {
           ) : (
             <Moment format="YYYY/MM/DD">{edu.to}</Moment>
           )}
+        </td>
+        <td>
+          <Link to={`/edit-education/${edu._id}`} className="btn btn-light">
+            <i className="fa fa-pencil text-info mr-1" />Edit
+          </Link>
         </td>
         <td>
           <button

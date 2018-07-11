@@ -26,6 +26,7 @@ import NotFound from "./components/not-found/NotFound";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import EditExperience from "./components/edit-profile/EditExperience";
+import EditEducation from "./components/edit-profile/EditEducation";
 import "./App.css";
 
 // Check for token
@@ -90,6 +91,13 @@ class App extends Component {
                   exact
                   path="/edit-experience/:exp_id"
                   component={EditExperience}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/edit-education/:edu_id"
+                  component={EditEducation}
                 />
               </Switch>
 

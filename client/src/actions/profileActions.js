@@ -178,15 +178,10 @@ export const getEducationById = id => dispatch => {
 };
 
 // Edit Education
-export const editEducation = (id, eduData) => dispatch => {
+export const editEducation = (id, eduData, history) => dispatch => {
   axios
     .post(`/api/profile/education/${id}`, eduData)
-    .then(res =>
-      dispatch({
-        type: GET_EDUCATION,
-        payload: res.data
-      })
-    )
+    .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
