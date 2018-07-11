@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { deleteExperience } from "../../actions/profileActions";
@@ -21,6 +22,11 @@ class Experience extends Component {
           ) : (
             <Moment format="YYYY/MM/DD">{exp.to}</Moment>
           )}
+        </td>
+        <td>
+          <Link to={`/edit-experience/${exp._id}`} className="btn btn-light">
+            <i className="fa fa-pencil text-info mr-1" />Edit
+          </Link>
         </td>
         <td>
           <button

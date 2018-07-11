@@ -132,28 +132,24 @@ export const getExperienceById = handle => dispatch => {
     .get(`/api/profile/handle/${handle}`)
     .then(res =>
       dispatch({
-        type: GET_PROFILE,
+        type: GET_EXPERIENCE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_PROFILE,
+        type: GET_EXPERIENCE,
         payload: null
       })
     );
 };
 
 // Edit Experience
-export const editExperience = (id, expData) => dispatch => {
+export const editExperience = (id, expData, history) => dispatch => {
   axios
     .post(`/api/profile/experience/${id}`, expData)
-    .then(res =>
-      dispatch({
-        type: GET_EXPERIENCE,
-        payload: res.data
-      })
-    )
+
+    .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -163,19 +159,19 @@ export const editExperience = (id, expData) => dispatch => {
 };
 
 // Get Education by ID
-export const getEducationById = handle => dispatch => {
+export const getEducationById = id => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get(`/api/profile/handle/${handle}`)
+    .get(`/api/profile/education/${id}`)
     .then(res =>
       dispatch({
-        type: GET_PROFILE,
+        type: GET_EDUCATION,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_PROFILE,
+        type: GET_EDUCATION,
         payload: null
       })
     );

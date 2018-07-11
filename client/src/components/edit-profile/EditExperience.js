@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import _ from 'lodash';
+import _ from "lodash";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFielGroup from "../common/TextAreaFieldGroup";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getExperienceById } from "../../actions/profileActions";
+import {
+  getCurrentProfile,
+  editExperience
+} from "../../actions/profileActions";
+import isEmpty from "../../validation/is-empty";
 
 class AddExperience extends Component {
   constructor(props) {
@@ -26,34 +30,48 @@ class AddExperience extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-
   componentDidMount() {
-    if (this.props.match.params.handle) {
-      this.props.getExperienceById(this.props.match.params.handle);
-    }
+    this.props.getCurrentProfile();
   }
-
   componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile === null && this.props.profile.loading) {
+      this.props.history.push("/not-found");
+    }
+
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
     }
-
-    // We check for experience array
     if (nextProps.profile.profile.experience) {
+      const experience = nextProps.profile.profile.experience;
+      const myExp = _.find(experience, ["_id", this.props.match.params.exp_id]);
 
-        const experience = nextProps.profile.profile.experience;
-        const myExp = _.filter(experience, _.matches())
+      // If Experience field does not exist, make empty string
+      myExp.title = !isEmpty(myExp.title) ? myExp.title : "";
+      myExp.company = !isEmpty(myExp.company) ? myExp.company : "";
+      myExp.location = !isEmpty(myExp.location) ? myExp.location : "";
+      myExp.from = !isEmpty(myExp.from) ? myExp.from : "";
+      myExp.to = !isEmpty(myExp.to) ? myExp.to : "";
+      myExp.current = !isEmpty(myExp.current) ? myExp.current : "";
+      myExp.description = !isEmpty(myExp.description) ? myExp.description : "";
 
-  
-
-
+      // Set component field state
+      this.setState({
+        company: myExp.company,
+        title: myExp.title,
+        location: myExp.location,
+        from: myExp.from,
+        to: myExp.to,
+        current: myExp.current,
+        description: myExp.description
+      });
+    }
   }
 
   onSubmit(e) {
     e.preventDefault();
-    const profileData = {
+    const expData = {
       company: this.state.company,
       title: this.state.title,
       location: this.state.location,
@@ -62,7 +80,11 @@ class AddExperience extends Component {
       current: this.state.current,
       description: this.state.description
     };
-    this.props.addExperience(profileData, this.props.history);
+    this.props.editExperience(
+      this.props.match.params.exp_id,
+      expData,
+      this.props.history
+    );
   }
 
   onChange(e) {
@@ -87,10 +109,10 @@ class AddExperience extends Component {
               <Link to="/dashboard" className="btn-btn-light">
                 Go Back
               </Link>
-              <h1 className="display-4 text-center">Add Experience</h1>
+              <h2 className="display-4 text-center">Edit your experience.</h2>
               <p className="lead text-center">
-                Add any past job, position or project role that you have had in
-                the past or current
+                Edit your {this.state.title} position, location or add more
+                details about your involvement.
               </p>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
@@ -177,5 +199,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getExperienceById }
+  { getCurrentProfile, editExperience }
 )(withRouter(AddExperience));
