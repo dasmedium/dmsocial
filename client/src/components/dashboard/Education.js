@@ -25,7 +25,7 @@ class Education extends Component {
         </td>
         <td>
           <Link to={`/edit-education/${edu._id}`} className="btn btn-light">
-            <i className="fa fa-pencil text-info mr-1" />Edit
+            <i className="far fa-edit text-info mr-1" />Edit
           </Link>
         </td>
         <td>
