@@ -106,9 +106,10 @@ class AddEducation extends Component {
               <Link to="/dashboard" className="btn-btn-light">
                 Go Back
               </Link>
-              <h1 className="display-4 text-center">Add Education</h1>
+              <h1 className="display-4 text-center">Edit your education</h1>
               <p className="lead text-center">
-                Add any school or program you have attended.
+                Edit your education credentials for {this.state.school} or
+                change any program details.
               </p>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
