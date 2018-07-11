@@ -34,17 +34,9 @@ class AddExperience extends Component {
     this.props.getCurrentProfile();
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push("/not-found");
-    }
-
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-    if (nextProps.profile.profile.experience) {
-      const experience = nextProps.profile.profile.experience;
+    if (nextProps.profile.profile) {
+      const profile = nextProps.profile.profile;
+      const experience = profile.experience;
       const myExp = _.find(experience, ["_id", this.props.match.params.exp_id]);
 
       // If Experience field does not exist, make empty string
@@ -65,6 +57,12 @@ class AddExperience extends Component {
         to: myExp.to,
         current: myExp.current,
         description: myExp.description
+      });
+    }
+
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
       });
     }
   }
@@ -189,7 +187,8 @@ class AddExperience extends Component {
 AddExperience.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  addExperience: PropTypes.func.isRequired
+  editExperience: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
