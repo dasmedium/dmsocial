@@ -2,7 +2,23 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import compose from "recompose/compose";
+
 import TextFieldGroup from "../common/TextFieldGroup";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: "center",
+    color: theme.palette.text.secondary
+  }
+});
 
 class Login extends Component {
   constructor() {
@@ -46,39 +62,44 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state;
-
+    const { classes } = this.props;
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your DevConnector account
-              </p>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Email Address"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                />
+      <div className={classes.root}>
+        <div className={classes.wrapper}>
+          <Paper className={classes.paper}>
+            <div className="row">
+              <div className="col-md-8 m-auto">
+                <h1 className="display-4 text-center">Log In</h1>
+                <p className="lead text-center">
+                  Sign in to your Tetoka account
+                </p>
+                <form onSubmit={this.onSubmit}>
+                  <TextFieldGroup
+                    placeholder="Email Address"
+                    name="email"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    error={errors.email}
+                  />
 
-                <TextFieldGroup
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
+                  <TextFieldGroup
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    error={errors.password}
+                  />
 
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+                  <input
+                    type="submit"
+                    className="btn btn-info btn-block mt-4"
+                  />
+                </form>
+              </div>
             </div>
-          </div>
+          </Paper>
         </div>
       </div>
     );
@@ -88,7 +109,8 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -96,7 +118,10 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { loginUser }
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    { loginUser }
+  )
 )(Login);

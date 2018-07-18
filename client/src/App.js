@@ -27,7 +27,10 @@ import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import EditExperience from "./components/edit-profile/EditExperience";
 import EditEducation from "./components/edit-profile/EditEducation";
-import "./App.css";
+// import "./App.css";
+// Add Material Ui theme provider
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import theme from "./components/material-ui/theme";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -53,72 +56,74 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <div className="container">
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/profiles" component={Profiles} />
-              <Route exact path="/profile/:handle" component={Profile} />
-              <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/create-profile"
-                  component={CreateProfile}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/edit-profile"
-                  component={EditProfile}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-experience"
-                  component={AddExperience}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/edit-experience/:exp_id"
-                  component={EditExperience}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/edit-education/:edu_id"
-                  component={EditEducation}
-                />
-              </Switch>
+        <MuiThemeProvider theme={theme}>
+          <Router>
+            <div className="App">
+              <Navbar />
+              <Route exact path="/" component={Landing} />
+              <div className="container">
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/profiles" component={Profiles} />
+                <Route exact path="/profile/:handle" component={Profile} />
+                <Switch>
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/create-profile"
+                    component={CreateProfile}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/edit-profile"
+                    component={EditProfile}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/add-experience"
+                    component={AddExperience}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/edit-experience/:exp_id"
+                    component={EditExperience}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/edit-education/:edu_id"
+                    component={EditEducation}
+                  />
+                </Switch>
 
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-education"
-                  component={AddEducation}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/feed" component={Posts} />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/post/:id" component={Post} />
-              </Switch>
-              <Route exact path="/not-found" component={NotFound} />
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/add-education"
+                    component={AddEducation}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/feed" component={Posts} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/post/:id" component={Post} />
+                </Switch>
+                <Route exact path="/not-found" component={NotFound} />
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </Router>
+          </Router>
+        </MuiThemeProvider>
       </Provider>
     );
   }

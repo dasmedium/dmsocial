@@ -24,7 +24,6 @@ import Button from "@material-ui/core/Button";
 
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ComponentProperty from "./ComponentProperty";
 
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
@@ -108,7 +107,7 @@ class Navbar extends Component {
     return (
       //class is now className - basics
       <div className={classes.root}>
-        <AppBar color="#ffff00" position="static">
+        <AppBar position="static">
           <Toolbar>
             <IconButton
               className={classes.menuButton}
@@ -122,7 +121,7 @@ class Navbar extends Component {
               color="inherit"
               className={classes.flex}
             >
-              Title
+              Tetoka
             </Typography>
             {isAuthenticated ? (
               <div>
