@@ -4,11 +4,14 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import compose from "recompose/compose";
 import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 import { registerUser } from "../../actions/authActions";
-import TextFieldGroup from "../common/TextFieldGroup";
+import TextField from "../common/TextField";
+import { FormHelperText } from "../../../node_modules/@material-ui/core";
+
 
 const styles = theme => ({
   root: {
@@ -67,32 +70,37 @@ class Register extends Component {
     const { errors } = this.state;
     const { classes } = this.props;
     return (
-      <div className="register">
-        <div className="container">
+      
+       
           <Paper className={classes.paper}>
-            <div className="row">
-              <div className="col-md-8 m-auto">
-                <h1 className="display-4 text-center">Sign Up</h1>
-                <p className="lead text-center">Create your Tetoka account</p>
+            
+                <h1 className={classes.paper}>Sign Up</h1>
+                <p className={classes.paper}>Create your Tetoka account</p>
                 <form noValidate onSubmit={this.onSubmit}>
-                  <TextFieldGroup
-                    placeholder="Name"
+                  <TextField
+                    
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
                     error={errors.name}
                   />
-                  <TextFieldGroup
-                    placeholder="Email"
+                  <TextField
+                    
                     name="email"
                     type="email"
                     value={this.state.email}
                     onChange={this.onChange}
                     error={errors.email}
-                    info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
-                  />
-                  <TextFieldGroup
-                    placeholder="Password"
+                    
+                  >
+                  
+                  </TextField>
+                  <FormHelperText className={classes.paper}>
+                  "This site uses Gravatar so if you want a profile image, use a Gravatar email"
+                  </FormHelperText>
+                  
+                  <TextField
+                    
                     name="password"
                     type="password"
                     value={this.state.password}
@@ -100,24 +108,21 @@ class Register extends Component {
                     error={errors.password}
                   />
 
-                  <TextFieldGroup
-                    placeholder="Confirm Password"
+                  <TextField
+                    
                     name="password2"
                     type="password"
                     value={this.state.password2}
                     onChange={this.onChange}
                     error={errors.password2}
                   />
-                  <input
-                    type="submit"
-                    className="btn btn-info btn-block mt-4"
-                  />
+                  <Button variant="contained" type="submit" className={classes.button}>
+        Submit
+      </Button>
                 </form>
-              </div>
-            </div>
+             
           </Paper>
-        </div>
-      </div>
+       
     );
   }
 }

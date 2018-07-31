@@ -28,7 +28,8 @@ const TextFieldGroup = ({
   info,
   type,
   onChange,
-  disabled
+  disabled,
+  helperText
 }) => {
   return (
     <form>
@@ -41,8 +42,8 @@ const TextFieldGroup = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
-        helperText={error}
-        label={info}
+        helperText={helperText}
+        label={label}
       </TextField>
     </form>
   );

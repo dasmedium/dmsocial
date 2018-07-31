@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import compose from "recompose/compose";
 
-import TextFieldGroup from "../common/TextFieldGroup";
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
+import TextField from "../common/TextField";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   root: {
@@ -64,44 +64,39 @@ class Login extends Component {
     const { errors } = this.state;
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <div className={classes.wrapper}>
-          <Paper className={classes.paper}>
-            <div className="row">
-              <div className="col-md-8 m-auto">
-                <h1 className="display-4 text-center">Log In</h1>
-                <p className="lead text-center">
+    <Paper className={classes.wrapper}>
+            
+              
+                <h1 className={classes.paper}>Log In</h1>
+                <p className={classes.paper}>
                   Sign in to your Tetoka account
                 </p>
-                <form onSubmit={this.onSubmit}>
-                  <TextFieldGroup
-                    placeholder="Email Address"
-                    name="email"
-                    type="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    error={errors.email}
-                  />
-
-                  <TextFieldGroup
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    error={errors.password}
-                  />
-
-                  <input
-                    type="submit"
-                    className="btn btn-info btn-block mt-4"
-                  />
-                </form>
-              </div>
-            </div>
+                <form onSubmit={this.onSubmit} className={classes.paper}>
+                <TextField className={classes.paper}
+                name="email"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+                id="email-login"
+                />
+                  
+                  <TextField
+                name="password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+                id="password-login"
+                />
+                <Button variant="contained" type="submit" className={classes.button}>
+        Log In
+      </Button>
+</form>
+                  
+              
+           
           </Paper>
-        </div>
-      </div>
+       
+      
     );
   }
 }
