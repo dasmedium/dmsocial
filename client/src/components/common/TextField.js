@@ -27,14 +27,14 @@ class ComposedTextField extends React.Component {
   
   render() {
     const { classes } = this.props;
-    const {name, value, error, id, onChange} = this.props;
+    const {name, value, error, id, onChange, type} = this.props;
 
     return (
     
       <div >
         <FormControl className={classes.FormControl} error={error} aria-describedby={id}>
           <InputLabel htmlFor="name-error">{name}</InputLabel>
-          <Input id={id} value={value} onChange={onChange} name={name}/>
+          <Input id={id} value={value} onChange={onChange} name={name} type={type}/>
           <FormHelperText id={id}>{error ? error : ""}</FormHelperText>
         </FormControl>
       </div>
@@ -50,6 +50,7 @@ ComposedTextField.propTypes = {
   name: PropTypes.string.isRequired,
   error: PropTypes.string,
   id: PropTypes.string,
+  type: PropTypes.string.isRequired
   
 };
 

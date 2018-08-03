@@ -78,6 +78,7 @@ class Login extends Component {
                 onChange={this.onChange}
                 error={errors.email}
                 id="email-login"
+                type='email'
                 />
                   
                   <TextField
@@ -86,6 +87,7 @@ class Login extends Component {
                 onChange={this.onChange}
                 error={errors.password}
                 id="password-login"
+                type='password'
                 />
                 <Button variant="contained" type="submit" className={classes.button}>
         Log In
