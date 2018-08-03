@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const _ = require("lodash");
+const assign = require("lodash/assign");
 
 // Load Validation
 const validateProfileInput = require("../../validation/profile");
@@ -348,7 +348,7 @@ router.post(
         const myExp = profile.experience[expIndex];
 
         // Reassign values
-        _.assign(myExp, newExp);
+        assign(myExp, newExp);
         // Save to database
         profile.save().then(() => res.json(newExp));
       })
@@ -414,7 +414,7 @@ router.post(
         const myEdu = profile.education[eduIndex];
 
         // Reassign values
-        _.assign(myEdu, newEdu);
+        assign(myEdu, newEdu);
         // Save to database
         profile.save().then(() => res.json(newEdu));
       })
