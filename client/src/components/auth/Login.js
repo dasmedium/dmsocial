@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import compose from "recompose/compose";
 
-
-
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "../common/TextField";
@@ -16,7 +14,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  
+
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: "center",
@@ -69,10 +67,13 @@ class Login extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.expand}>
-        
         <Paper className={classes.wrapper}>
-          <Typography className={classes.paper} variant="display1">Log In</Typography>
-          <Typography className={classes.paper} variant="title">Sign in to your Tetoka account </Typography>
+          <Typography className={classes.paper} variant="display1">
+            Log In
+          </Typography>
+          <Typography className={classes.paper} variant="title">
+            Sign in to your Tetoka account{" "}
+          </Typography>
           <form onSubmit={this.onSubmit} className={classes.paper}>
             <TextField
               className={classes.paper}
@@ -101,7 +102,6 @@ class Login extends Component {
             </Button>
           </form>
         </Paper>
-        
       </div>
     );
   }

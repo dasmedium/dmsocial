@@ -4,16 +4,24 @@ import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import Background from "../common/Background";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+
 import compose from "recompose/compose";
 
 const styles = theme => ({
   container: {
     display: "flex",
-    width: 200
+    position: "relative"
   }
 });
 
 class Landing extends Component {
+  constructor() {
+    super();
+    this.state = {
+      title: "Tetoka"
+    };
+  }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -24,17 +32,7 @@ class Landing extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Background>
-          <h1 className="display-3 mb-4">Tetoka</h1>
-          <p className="lead"> Education Social Network</p>
-          <hr />
-          <Link to="/register" className="btn btn-lg btn-info mr-2">
-            Sign Up
-          </Link>
-          <Link to="/login" className="btn btn-lg btn-light">
-            Login
-          </Link>
-        </Background>
+        <Background className={classes.container} appTitle={this.state.title} />
       </div>
     );
   }

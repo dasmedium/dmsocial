@@ -105,7 +105,6 @@ class Navbar extends Component {
     }
 
     return (
-      //class is now className - basics
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
