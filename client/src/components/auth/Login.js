@@ -12,13 +12,21 @@ import { Grid, Typography } from "../../../node_modules/@material-ui/core";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    height: "85vh"
+  },
+  form: {
+    paddingTop: "30px",
+    textAlign: "center",
+    padding: theme.spacing.unit * 2,
+    height: "100%"
   },
 
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    height: "100%"
   }
 });
 
@@ -66,15 +74,15 @@ class Login extends Component {
     const { errors } = this.state;
     const { classes } = this.props;
     return (
-      <div className={classes.expand}>
-        <Paper className={classes.wrapper}>
-          <Typography className={classes.paper} variant="display1">
-            Log In
-          </Typography>
-          <Typography className={classes.paper} variant="title">
-            Sign in to your Tetoka account{" "}
-          </Typography>
-          <form onSubmit={this.onSubmit} className={classes.paper}>
+      <div className={classes.root}>
+        <Grid container justify="center">
+          <form onSubmit={this.onSubmit} className={classes.form}>
+            <Typography className={classes.paper} variant="display1">
+              Log In
+            </Typography>
+            <Typography className={classes.paper} variant="title">
+              Sign in to your Tetoka account{" "}
+            </Typography>
             <TextField
               className={classes.paper}
               name="email"
@@ -101,7 +109,7 @@ class Login extends Component {
               Log In
             </Button>
           </form>
-        </Paper>
+        </Grid>
       </div>
     );
   }

@@ -10,12 +10,22 @@ import Button from "@material-ui/core/Button";
 
 import { registerUser } from "../../actions/authActions";
 import TextField from "../common/TextField";
-import { FormHelperText } from "../../../node_modules/@material-ui/core";
-
+import {
+  FormHelperText,
+  Typography,
+  Grid
+} from "../../../node_modules/@material-ui/core";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    height: "85vh"
+  },
+  form: {
+    paddingTop: "30px",
+    textAlign: "center",
+    padding: theme.spacing.unit * 2,
+    height: "100%"
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -70,59 +80,58 @@ class Register extends Component {
     const { errors } = this.state;
     const { classes } = this.props;
     return (
-      
-       
-          <Paper className={classes.paper}>
-            
-                <h1 className={classes.paper}>Sign Up</h1>
-                <p className={classes.paper}>Create your Tetoka account</p>
-                <form noValidate onSubmit={this.onSubmit}>
-                  <TextField
-                    
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                    error={errors.name}
-                  />
-                  <TextField
-                    
-                    name="email"
-                    type="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    error={errors.email}
-                    
-                  >
-                  
-                  </TextField>
-                  <FormHelperText className={classes.paper}>
-                  "This site uses Gravatar so if you want a profile image, use a Gravatar email"
-                  </FormHelperText>
-                  
-                  <TextField
-                    
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    error={errors.password}
-                  />
+      <div className={classes.root}>
+        <Grid container justify="center">
+          <form noValidate onSubmit={this.onSubmit} className={classes.form}>
+            <Typography variant="display2" align="center">
+              Sign Up
+            </Typography>
+            <Typography variant="subheading" align="center">
+              Create your Tetoka Account
+            </Typography>
+            <TextField
+              name="name"
+              value={this.state.name}
+              onChange={this.onChange}
+              error={errors.name}
+            />
+            <TextField
+              name="email"
+              type="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+            />
+            <FormHelperText className={classes.paper}>
+              "This site uses Gravatar so if you want a profile image, use a
+              Gravatar email"
+            </FormHelperText>
 
-                  <TextField
-                    
-                    name="password2"
-                    type="password"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                    error={errors.password2}
-                  />
-                  <Button variant="contained" type="submit" className={classes.button}>
-        Submit
-      </Button>
-                </form>
-             
-          </Paper>
-       
+            <TextField
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+            />
+
+            <TextField
+              name="password2"
+              type="password"
+              value={this.state.password2}
+              onChange={this.onChange}
+              error={errors.password2}
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              className={classes.button}
+            >
+              Submit
+            </Button>
+          </form>
+        </Grid>
+      </div>
     );
   }
 }

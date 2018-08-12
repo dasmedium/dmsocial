@@ -21,6 +21,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuList from "@material-ui/core/MenuList";
 import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
 
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -79,7 +80,7 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    const { profile } = this.state;
+    const { profile } = this.props.profile;
 
     function ListItemLinkProfile(props) {
       const { primary } = props;
@@ -130,7 +131,11 @@ class Navbar extends Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle />
+                  <Avatar
+                    alt="avatar"
+                    src={user.avatar}
+                    className={classes.avatar}
+                  />
                 </IconButton>
                 <div>
                   <Menu

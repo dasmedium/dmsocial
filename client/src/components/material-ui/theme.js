@@ -13,9 +13,6 @@ const theme = createMuiTheme({
       main: "#6ff9ff",
       dark: "#0095a8",
       contrastText: "#fafafa"
-    },
-    root: {
-      flexgrow: 1
     }
   }
 });

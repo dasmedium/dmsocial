@@ -12,7 +12,7 @@ const styles = theme => ({
     position: "relative"
   },
   image: {
-    height: "700px",
+    height: "85vh",
     width: "100%",
     opacity: "0.7"
   },

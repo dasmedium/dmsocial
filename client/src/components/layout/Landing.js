@@ -11,7 +11,7 @@ import compose from "recompose/compose";
 const styles = theme => ({
   container: {
     display: "flex",
-    position: "relative"
+    height: "85vh"
   }
 });
 
@@ -31,8 +31,8 @@ class Landing extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <Background className={classes.container} appTitle={this.state.title} />
+      <div className={classes.container}>
+        <Background appTitle={this.state.title} />
       </div>
     );
   }
