@@ -83,7 +83,7 @@ class Navbar extends Component {
     const { profile } = this.props.profile;
 
     function ListItemLinkProfile(props) {
-      const { primary } = props;
+      const { primary, to } = props;
 
       return (
         <li>

@@ -7,6 +7,7 @@ import Spinner from "../common/Spinner";
 import ProfileActions from "./ProfileActions";
 import Experience from "./Experience";
 import Education from "./Education";
+import ProfileLink from "../common/ProfileLink";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -31,7 +32,10 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+              <ProfileLink
+                primary={`Welcome ${user.name}`}
+                to={`/profile/${profile.handle}`}
+              />
             </p>
             <ProfileActions />
             <Experience experience={profile.experience} />
