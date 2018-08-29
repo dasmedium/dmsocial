@@ -1,22 +1,54 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-const ProfileActions = () => {
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
+  input: {
+    display: "none"
+  }
+});
+
+const ProfileActions = props => {
+  const { classes } = props;
   return (
-    <div className="btn-group mb-4" role="group">
-      <Link to="/edit-profile" className="btn btn-light">
-        <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
-      </Link>
-      <Link to="/add-experience" className="btn btn-light">
-        <i className="fab fa-black-tie text-info mr-1" />
-        Add Experience
-      </Link>
-      <Link to="/add-education" className="btn btn-light">
-        <i className="fas fa-graduation-cap text-info mr-1" />
+    <div>
+      <Button
+        size="small"
+        variant="contained"
+        component={Link}
+        to="/edit-profile"
+        className={classes.button}
+      >
+        Edit Profile
+      </Button>
+      <Button
+        size="small"
+        variant="contained"
+        component={Link}
+        to="/add-education"
+        className={classes.button}
+      >
         Add Education
-      </Link>
+      </Button>
+      <Button
+        size="small"
+        variant="contained"
+        component={Link}
+        to="/add-experience"
+        className={classes.button}
+      >
+        Add Experience
+      </Button>
     </div>
   );
 };
 
-export default ProfileActions;
+ProfileActions.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+export default withStyles(styles)(ProfileActions);
