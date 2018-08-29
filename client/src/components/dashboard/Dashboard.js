@@ -2,12 +2,26 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core/styles";
+import { withTheme } from "@material-ui/core/styles";
+import compose from "recompose/compose";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
+import Button from "@material-ui/core/Button";
 import ProfileActions from "./ProfileActions";
 import Experience from "./Experience";
 import Education from "./Education";
 import ProfileLink from "../common/ProfileLink";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    color: "red"
+  },
+  input: {
+    display: "none"
+  }
+});
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -19,6 +33,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
 
@@ -41,12 +56,13 @@ class Dashboard extends Component {
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
             <div style={{ marginBottom: "60px" }} />
-            <button
+            <Button
+              variant="contained"
+              className={classes.button}
               onClick={this.onDeleteClick.bind(this)}
-              className="btn-danger"
             >
               Delete My Account
-            </button>
+            </Button>
           </div>
         );
       } else {
@@ -81,7 +97,8 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -89,7 +106,11 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, deleteAccount }
+export default compose(
+  withTheme(),
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    { getCurrentProfile, deleteAccount }
+  )
 )(Dashboard);
