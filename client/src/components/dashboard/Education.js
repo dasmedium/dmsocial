@@ -12,7 +12,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Button from "@material-ui/core/Button";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
 
 const styles = theme => ({
   root: {
@@ -28,6 +29,10 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     color: "#D50000"
+  },
+  icon: {
+    margin: theme.spacing.unit,
+    fontSize: 32
   }
 });
 
@@ -51,20 +56,17 @@ class Education extends Component {
           )}
         </TableCell>
         <TableCell>
-          <Link to={`/edit-education/${edu._id}`} className="btn btn-light">
-            <i className="far fa-edit text-info mr-1" />
-            Edit
+          <Link to={`/edit-education/${edu._id}`}>
+            <EditIcon />
           </Link>
         </TableCell>
         <TableCell>
-          <Button
+          <DeleteOutline
             onClick={this.onDeleteClick.bind(this, edu._id)}
-            className={classes.button}
-            variant="contained"
-            size="small"
+            className={classes.icon}
           >
             Delete
-          </Button>
+          </DeleteOutline>
         </TableCell>
       </TableRow>
     ));
@@ -78,7 +80,8 @@ class Education extends Component {
               <TableCell>School</TableCell>
               <TableCell>Degree</TableCell>
               <TableCell>Years</TableCell>
-              <TableCell />{" "}
+              <TableCell>Edit</TableCell>
+              <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{education}</TableBody>

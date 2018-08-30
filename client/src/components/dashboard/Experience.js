@@ -12,7 +12,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Button from "@material-ui/core/Button";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
 import Paper from "@material-ui/core/Paper";
 import { Tab } from "@material-ui/core";
 
@@ -30,6 +31,10 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     color: "#D50000"
+  },
+  icon: {
+    margin: theme.spacing.unit,
+    fontSize: 32
   }
 });
 
@@ -53,20 +58,17 @@ class Experience extends Component {
           )}
         </TableCell>
         <TableCell>
-          <Link to={`/edit-experience/${exp._id}`} className="btn btn-light">
-            <i className="far fa-edit text-info mr-1" />
-            Edit
+          <Link to={`/edit-experience/${exp._id}`}>
+            <EditIcon />
           </Link>
         </TableCell>
         <TableCell>
-          <Button
+          <DeleteOutline
             onClick={this.onDeleteClick.bind(this, exp._id)}
-            className={classes.button}
-            variant="contained"
-            size="small"
+            className={classes.icon}
           >
             Delete
-          </Button>
+          </DeleteOutline>
         </TableCell>
       </TableRow>
     ));
@@ -80,7 +82,8 @@ class Experience extends Component {
               <TableCell>Company</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Years</TableCell>
-              <TableCell />
+              <TableCell>Edit</TableCell>
+              <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{experience}</TableBody>

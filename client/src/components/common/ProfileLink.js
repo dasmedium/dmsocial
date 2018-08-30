@@ -6,11 +6,9 @@ export default props => {
   const { primary, to } = props;
   return (
     <div>
-      <li>
-        <MenuItem button component={Link} to={to}>
-          <ListItemText primary={primary} />
-        </MenuItem>
-      </li>
+      <MenuItem button component={Link} to={to}>
+        <ListItemText primary={primary} />
+      </MenuItem>
     </div>
   );
 };

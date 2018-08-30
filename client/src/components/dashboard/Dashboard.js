@@ -13,6 +13,9 @@ import Experience from "./Experience";
 import Education from "./Education";
 import ProfileLink from "../common/ProfileLink";
 
+import Grid from "@material-ui/core/Grid";
+import { Typography } from "@material-ui/core";
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -20,6 +23,16 @@ const styles = theme => ({
   },
   input: {
     display: "none"
+  },
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    height: 140,
+    width: 100
+  },
+  control: {
+    padding: theme.spacing.unit * 2
   }
 });
 
@@ -46,13 +59,8 @@ class Dashboard extends Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>
-            <p className="lead text-muted">
-              <ProfileLink
-                primary={`Welcome ${user.name}`}
-                to={`/profile/${profile.handle}`}
-              />
-            </p>
             <ProfileActions />
+
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
             <div style={{ marginBottom: "60px" }} />
@@ -79,16 +87,11 @@ class Dashboard extends Component {
       }
     }
     return (
-      <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
-              {dashboardContent}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Grid container className={classes.root}>
+        <Grid item xs={12}>
+          {dashboardContent}
+        </Grid>
+      </Grid>
     );
   }
 }
