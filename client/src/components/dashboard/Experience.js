@@ -12,17 +12,24 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { Tab } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: "95%",
     marginTop: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit * 3,
     overflowX: "auto"
   },
   table: {
     minWidth: 700
+  },
+  button: {
+    margin: theme.spacing.unit,
+    color: "#D50000"
   }
 });
 
@@ -52,18 +59,20 @@ class Experience extends Component {
           </Link>
         </TableCell>
         <TableCell>
-          <button
+          <Button
             onClick={this.onDeleteClick.bind(this, exp._id)}
-            className="btn btn-danger"
+            className={classes.button}
+            variant="contained"
+            size="small"
           >
             Delete
-          </button>
+          </Button>
         </TableCell>
       </TableRow>
     ));
 
     return (
-      <div>
+      <div className={classes.root}>
         <h4 className="mb-4">Experience Credentials</h4>
         <Table className={classes.table}>
           <TableHead>
