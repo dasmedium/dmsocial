@@ -3,7 +3,7 @@
 # Tetoka Education Social Network
 
 This project is the front-end Tetoka Social Network client application.
-The current live prototype of this app is hosted [here](https://radiant-reef-72314.herokuapp.com/)
+The current live prototype of this app is hosted [here](https://radiant-reef-72314.herokuapp.com/).
 Feel free to create an account and browse around.
 The focus of this repo is to develop a new user interface based on [Material-UI](https://material-ui.com/) instead of the current live bootstrap version.
 
