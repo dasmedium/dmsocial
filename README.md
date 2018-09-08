@@ -13,7 +13,7 @@ Redux handles application state on the front-end.
 Planned features:
 
 - Material UI styling _in-progress_
-- GraphQL integration layer
+- [GraphQL integration layer](https://github.com/dasmedium/tetokaAPI)
 - Solidity Smart Contracts
 
 Tetoka aims to bridge the gap between cryptographic payment networks and incentivised learning.
