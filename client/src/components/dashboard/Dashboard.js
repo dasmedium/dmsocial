@@ -14,7 +14,6 @@ import Education from "./Education";
 import ProfileLink from "../common/ProfileLink";
 
 import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
 
 const styles = theme => ({
   button: {

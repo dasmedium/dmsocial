@@ -12,6 +12,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
 
@@ -32,7 +33,11 @@ const styles = theme => ({
   },
   icon: {
     margin: theme.spacing.unit,
-    fontSize: 32
+    fontSize: 32,
+    color: "#A9A9A9"
+  },
+  text: {
+    color: "#696969"
   }
 });
 
@@ -57,7 +62,7 @@ class Education extends Component {
         </TableCell>
         <TableCell>
           <Link to={`/edit-education/${edu._id}`}>
-            <EditIcon />
+            <EditIcon className={classes.icon} />
           </Link>
         </TableCell>
         <TableCell>
@@ -73,7 +78,9 @@ class Education extends Component {
 
     return (
       <div className={classes.root}>
-        <h4 className="mb-4">Education Credentials</h4>
+        <Typography className={classes.text} variant="h2" gutterBottom>
+          Education Credentials
+        </Typography>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
