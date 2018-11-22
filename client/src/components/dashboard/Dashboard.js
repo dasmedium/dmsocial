@@ -24,7 +24,7 @@ const styles = theme => ({
     display: "none"
   },
   root: {
-    flexGrow: 1
+    width: "100%"
   },
   paper: {
     height: 140,

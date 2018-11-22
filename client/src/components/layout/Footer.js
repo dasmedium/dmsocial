@@ -15,13 +15,11 @@ const styles = {
 function Footer(props) {
   const { classes } = props;
   return (
-    <div className={classes.root}>
-      <Grid item xs={12} spacing={24}>
-        <Typography variant="body1" align="center" className={classes.root}>
-          Copyright &copy; {new Date().getFullYear()} Das Medium Inc.
-        </Typography>
-      </Grid>
-    </div>
+    <Grid item xs={12} spacing={24} className={classes.root}>
+      <Typography variant="body1" align="center" className={classes.root}>
+        Copyright &copy; {new Date().getFullYear()} Das Medium Inc.
+      </Typography>
+    </Grid>
   );
 }
 export default withStyles(styles)(Footer);

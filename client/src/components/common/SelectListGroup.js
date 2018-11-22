@@ -1,30 +1,47 @@
-import React from "react";
-import classnames from "classnames";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import { withStyles } from "@material-ui/core/styles";
 
-const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
-  const selectOptions = options.map(option => (
-    <option key={option.label} value={option.value}>
-      {option.label}
-    </option>
-  ));
-  return (
-    <div className="form-group">
-      <select
-        className={classnames("form-control form-control-lg", {
-          "is-invalid": error
-        })}
-        name={name}
-        value={value}
-        onChange={onChange}
-      >
-        {selectOptions}
-      </select>
-      {info && <small className="form-text text-muted">{info}</small>}
-      {error && <div className="invalid-feedback">{error}</div>}
-    </div>
-  );
-};
+const styles = theme => ({
+  menu: {
+    width: 200
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  }
+});
+
+class SelectListGroup extends Component {
+  render() {
+    const { classes } = this.props;
+    const { name, value, error, info, onChange, options } = this.props;
+    return (
+      <div>
+        <TextField
+          select
+          value={value}
+          error={error}
+          helperText={info}
+          onChange={onChange}
+          className={classes.TextField}
+        >
+          {options.map(option => (
+            <MenuItem
+              className={classes.menu}
+              key={option.label}
+              value={option.value}
+            >
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+    );
+  }
+}
 
 SelectListGroup.propTypes = {
   name: PropTypes.string.isRequired,
@@ -32,7 +49,8 @@ SelectListGroup.propTypes = {
   info: PropTypes.string,
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired
+  options: PropTypes.array.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default SelectListGroup;
+export default withStyles(styles)(SelectListGroup);

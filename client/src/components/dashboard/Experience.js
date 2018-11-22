@@ -18,7 +18,6 @@ import DeleteOutline from "@material-ui/icons/DeleteOutline";
 
 const styles = theme => ({
   root: {
-    width: "95%",
     marginTop: theme.spacing.unit * 3,
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
@@ -78,7 +77,7 @@ class Experience extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography className={classes.text} variant="h2" gutterBottom>
+        <Typography className={classes.text} variant="h4" gutterBottom>
           Experience Credentials
         </Typography>
         <Table className={classes.table}>

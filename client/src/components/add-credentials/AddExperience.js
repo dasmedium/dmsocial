@@ -1,10 +1,36 @@
 import React, { Component } from "react";
+import compose from "recompose/compose";
 import { Link, withRouter } from "react-router-dom";
 import TextFieldGroup from "../common/TextFieldGroup";
-import TextAreaFielGroup from "../common/TextAreaFieldGroup";
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addExperience } from "../../actions/profileActions";
+import {
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+  Paper,
+  withStyles,
+  withTheme
+} from "@material-ui/core";
+
+const styles = theme => ({
+  root: {
+    maxWidth: "100%"
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: "left",
+    color: theme.palette.text.secondary,
+    height: "100%"
+  }
+});
 
 class AddExperience extends Component {
   constructor(props) {
@@ -59,88 +85,102 @@ class AddExperience extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { errors } = this.state;
 
     return (
-      <div className="add-experience">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn-btn-light">
+      <div className={classes.root}>
+        <Grid container justify="center" spacing={24} className={classes.paper}>
+          <Grid item xs={12} justify="flex-start">
+            <Link to="/dashboard" className="btn-btn-light">
+              <Button variant="contained" className={classes.button}>
                 Go Back
-              </Link>
-              <h1 className="display-4 text-center">Add Experience</h1>
-              <p className="lead text-center">
-                Add any past job, position or project role that you have had in
-                the past or current
-              </p>
-              <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="* Company"
-                  name="company"
-                  value={this.state.company}
-                  onChange={this.onChange}
-                  error={errors.company}
-                />
-                <TextFieldGroup
-                  placeholder="* Job Title"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.onChange}
-                  error={errors.title}
-                />
-                <TextFieldGroup
-                  placeholder="Location"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.onChange}
-                  error={errors.location}
-                />
-                <h6>From Date</h6>
-                <TextFieldGroup
-                  name="from"
-                  type="date"
-                  value={this.state.from}
-                  onChange={this.onChange}
-                  error={errors.from}
-                />
-                <h6>To Date</h6>
-                <TextFieldGroup
-                  name="to"
-                  type="date"
-                  value={this.state.to}
-                  onChange={this.onChange}
-                  error={errors.to}
-                  disabled={this.state.disabled ? "disabled" : ""}
-                />
-                <div className="form-check mb-4">
-                  <input
+              </Button>
+            </Link>
+            <Typography variant="display1" align="center">
+              Add Experience
+            </Typography>
+            <Typography variant="body1" align="center">
+              Add any past job, position or project role that you have had in
+              the past or current
+            </Typography>
+            <Typography variant="caption">* = required fields</Typography>
+            <form onSubmit={this.onSubmit}>
+              <TextFieldGroup
+                placeholder="* Company"
+                name="company"
+                value={this.state.company}
+                onChange={this.onChange}
+                error={errors.company}
+              />
+              <TextFieldGroup
+                placeholder="* Job Title"
+                name="title"
+                value={this.state.title}
+                onChange={this.onChange}
+                error={errors.title}
+              />
+              <TextFieldGroup
+                placeholder="Location"
+                name="location"
+                value={this.state.location}
+                onChange={this.onChange}
+                error={errors.location}
+              />
+
+              <TextFieldGroup
+                label="From Date"
+                name="from"
+                type="date"
+                value={this.state.from}
+                onChange={this.onChange}
+                error={errors.from}
+              />
+
+              <TextFieldGroup
+                label="To Date"
+                name="to"
+                type="date"
+                value={this.state.to}
+                onChange={this.onChange}
+                error={errors.to}
+                disabled={this.state.disabled ? "disabled" : ""}
+              />
+              <FormControlLabel
+                label="Current School"
+                control={
+                  <Checkbox
+                    color="primary"
                     type="checkbox"
-                    className="form-check-input"
-                    name="current"
+                    id="current"
                     value={this.state.current}
                     checked={this.state.current}
                     onChange={this.onCheck}
                     id="current"
                   />
-                  <label htmlFor="current" className="form-check-label">
-                    Current Job
-                  </label>
-                </div>
-                <TextAreaFielGroup
-                  placeholder="Job Description"
-                  name="description"
-                  value={this.state.description}
-                  onChange={this.onChange}
-                  error={errors.description}
-                  info="Tell us about this position"
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
-          </div>
-        </div>
+                }
+              />
+              <TextAreaFieldGroup
+                placeholder="Job Description"
+                name="description"
+                value={this.state.description}
+                onChange={this.onChange}
+                error={errors.description}
+                info="Tell us about this position"
+                multiline={true}
+                variant="outlined"
+                fullWidth={true}
+              />
+              <Button
+                className={classes.button}
+                type="submit"
+                variant="contained"
+              >
+                Submit
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -157,7 +197,11 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { addExperience }
+export default compose(
+  withTheme(),
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    { addExperience }
+  )
 )(withRouter(AddExperience));

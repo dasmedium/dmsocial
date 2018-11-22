@@ -31,6 +31,7 @@ import EditEducation from "./components/edit-profile/EditEducation";
 // Add Material Ui theme provider
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import theme from "./components/material-ui/theme";
+import { Grid } from "@material-ui/core";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -58,10 +59,10 @@ class App extends Component {
       <Provider store={store}>
         <MuiThemeProvider theme={theme}>
           <Router>
-            <div className="App">
+            <Grid container>
               <Navbar />
               <Route exact path="/" component={Landing} />
-              <div className="container">
+              <Grid container>
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/profiles" component={Profiles} />
@@ -119,9 +120,9 @@ class App extends Component {
                   <PrivateRoute exact path="/post/:id" component={Post} />
                 </Switch>
                 <Route exact path="/not-found" component={NotFound} />
-              </div>
+              </Grid>
               <Footer />
-            </div>
+            </Grid>
           </Router>
         </MuiThemeProvider>
       </Provider>

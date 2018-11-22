@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import compose from "recompose/compose";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,6 +9,28 @@ import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 import isEmpty from "../../validation/is-empty";
+import { withStyles, withTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+const styles = theme => ({
+  root: {
+    maxWidth: "100%"
+  },
+  text: {
+    color: "#696969"
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: "left",
+    color: theme.palette.text.secondary,
+    height: "100%"
+  },
+  button: {
+    margin: theme.spacing.unit
+  }
+});
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -118,53 +141,58 @@ class CreateProfile extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { errors, displaySocialInputs } = this.state;
 
     let socialInputs;
 
     if (displaySocialInputs) {
       socialInputs = (
-        <div>
-          <InputGroup
-            placeholder="Twitter Profile URL"
-            name="twitter"
-            icon="fab fa-twitter"
-            value={this.state.twitter}
-            onChange={this.onChange}
-            error={errors.twitter}
-          />
-          <InputGroup
-            placeholder="Facebook Profile URL"
-            name="facebook"
-            icon="fab fa-facebook"
-            value={this.state.facebook}
-            onChange={this.onChange}
-            error={errors.facebook}
-          />
-          <InputGroup
-            placeholder="LinkedIn Profile URL"
-            name="linkedin"
-            icon="fab fa-linkedin"
-            value={this.state.linkedin}
-            onChange={this.onChange}
-            error={errors.linkedin}
-          />
-          <InputGroup
-            placeholder="Youtube Channel URL"
-            name="youtube"
-            icon="fab fa-youtube"
-            value={this.state.youtube}
-            onChange={this.onChange}
-            error={errors.youtube}
-          />
-          <InputGroup
-            placeholder="Instagram Page URL"
-            name="instagram"
-            icon="fab fa-instagram"
-            value={this.state.instagram}
-            onChange={this.onChange}
-            error={errors.instagram}
-          />
+        <div className={classes.root}>
+          <Grid container spacing={24}>
+            <Grid item xs={12}>
+              <InputGroup
+                placeholder="Twitter Profile URL"
+                name="twitter"
+                icon="fab fa-twitter"
+                value={this.state.twitter}
+                onChange={this.onChange}
+                error={errors.twitter}
+              />
+              <InputGroup
+                placeholder="Facebook Profile URL"
+                name="facebook"
+                icon="fab fa-facebook"
+                value={this.state.facebook}
+                onChange={this.onChange}
+                error={errors.facebook}
+              />
+              <InputGroup
+                placeholder="LinkedIn Profile URL"
+                name="linkedin"
+                icon="fab fa-linkedin"
+                value={this.state.linkedin}
+                onChange={this.onChange}
+                error={errors.linkedin}
+              />
+              <InputGroup
+                placeholder="Youtube Channel URL"
+                name="youtube"
+                icon="fab fa-youtube"
+                value={this.state.youtube}
+                onChange={this.onChange}
+                error={errors.youtube}
+              />
+              <InputGroup
+                placeholder="Instagram Page URL"
+                name="instagram"
+                icon="fab fa-instagram"
+                value={this.state.instagram}
+                onChange={this.onChange}
+                error={errors.instagram}
+              />
+            </Grid>
+          </Grid>
         </div>
       );
     }
@@ -184,102 +212,125 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <div className="create-profile">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn-btn-light">
+      <div className={classes.root}>
+        <Grid container justify="center" spacing={24} className={classes.paper}>
+          <Grid item xs={12} justify="flex-start">
+            <Link to="/dashboard" className="btn-btn-light">
+              <Button variant="contained" className={classes.button}>
                 Go Back
-              </Link>
-              <h1 className="display-4 text-center">Edit Profile</h1>
+              </Button>
+            </Link>
+            <Typography variant="display1" gutterBottom>
+              Edit Profile
+            </Typography>
+            <Typography variant="caption" className={classes.text}>
+              * = required fields
+            </Typography>
+            <form onSubmit={this.onSubmit}>
+              <TextFieldGroup
+                placeholder="* Profile Handle"
+                label="* Profile Handle"
+                name="handle"
+                value={this.state.handle}
+                onChange={this.onChange}
+                error={errors.handle}
+                info="A unique handle for your profile URL. Your name, company or nickname etc."
+                fullWidth={true}
+              />
+              <SelectListGroup
+                placeholder="Status"
+                label="Status"
+                name="status"
+                value={this.state.status}
+                onChange={this.onChange}
+                options={options}
+                error={errors.status}
+                info="Give us an idea of your career status"
+                fullWidth={true}
+              />
+              <TextFieldGroup
+                placeholder="Company"
+                label="Company"
+                name="company"
+                value={this.state.company}
+                onChange={this.onChange}
+                error={errors.company}
+                info="Could be your own or one you work for."
+                fullWidth={true}
+              />
+              <TextFieldGroup
+                placeholder="Website"
+                label="Website"
+                name="website"
+                value={this.state.website}
+                onChange={this.onChange}
+                error={errors.website}
+                info="Could be your own website or company website."
+                fullWidth={true}
+              />
+              <TextFieldGroup
+                placeholder="Location"
+                label="Location"
+                name="location"
+                value={this.state.location}
+                onChange={this.onChange}
+                error={errors.location}
+                info="City or city and state"
+                fullWidth={true}
+              />
+              <TextFieldGroup
+                placeholder="Skills"
+                label="Skills"
+                name="skills"
+                value={this.state.skills}
+                onChange={this.onChange}
+                error={errors.skills}
+                info="Please use comma separated values (eg. HTML,CSS,Java,etc)."
+                fullWidth={true}
+              />
+              <TextFieldGroup
+                placeholder="Github Username"
+                label="Github Username"
+                name="githubusername"
+                value={this.state.githubusername}
+                onChange={this.onChange}
+                error={errors.githubusername}
+                info="If you want your latest repos and a Github link, include your username"
+                fullWidth={true}
+              />
+              <TextAreaFieldGroup
+                placeholder="Short Bio"
+                label="Short Bio"
+                name="bio"
+                value={this.state.bio}
+                onChange={this.onChange}
+                error={errors.bio}
+                info="Tell us a bit about yourself"
+                variant="outlined"
+                multiline={true}
+                fullWidth={true}
+              />
 
-              <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="* Profile Handle"
-                  name="handle"
-                  value={this.state.handle}
-                  onChange={this.onChange}
-                  error={errors.handle}
-                  info="A unique handle for your profile URL. Your name, company or nickname etc."
-                />
-                <SelectListGroup
-                  placeholder="Status"
-                  name="status"
-                  value={this.state.status}
-                  onChange={this.onChange}
-                  options={options}
-                  error={errors.status}
-                  info="Give us an idea of your career status"
-                />
-                <TextFieldGroup
-                  placeholder="Company"
-                  name="company"
-                  value={this.state.company}
-                  onChange={this.onChange}
-                  error={errors.company}
-                  info="Could be your own or one you work for."
-                />
-                <TextFieldGroup
-                  placeholder="Website"
-                  name="website"
-                  value={this.state.website}
-                  onChange={this.onChange}
-                  error={errors.website}
-                  info="Could be your own website or company website."
-                />
-                <TextFieldGroup
-                  placeholder="Location"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.onChange}
-                  error={errors.location}
-                  info="City or city and state"
-                />
-                <TextFieldGroup
-                  placeholder="Skills"
-                  name="skills"
-                  value={this.state.skills}
-                  onChange={this.onChange}
-                  error={errors.skills}
-                  info="Please use comma separated values (eg. HTML,CSS,Java,etc)."
-                />
-                <TextFieldGroup
-                  placeholder="Github Username"
-                  name="githubusername"
-                  value={this.state.githubusername}
-                  onChange={this.onChange}
-                  error={errors.githubusername}
-                  info="If you want your latest repos and a Github link, include your username"
-                />
-                <TextAreaFieldGroup
-                  placeholder="Short Bio"
-                  name="bio"
-                  value={this.state.bio}
-                  onChange={this.onChange}
-                  error={errors.bio}
-                  info="Tell us a bit about yourself"
-                />
-                <div className="mb-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      this.setState(prevState => ({
-                        displaySocialInputs: !prevState.displaySocialInputs
-                      }));
-                    }}
-                    className="btn btn-light"
-                  >
-                    Add Social Network Links
-                  </button>
-                  <span className="text-muted">Optional</span>
-                </div>
-                {socialInputs}
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
-          </div>
-        </div>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  this.setState(prevState => ({
+                    displaySocialInputs: !prevState.displaySocialInputs
+                  }));
+                }}
+                className={classes.button}
+              >
+                Add Social Network Links
+              </Button>
+              <Typography variant="caption">Optional</Typography>
+
+              {socialInputs}
+              <Button variant="contained" className={classes.button}>
+                Submit
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -289,7 +340,8 @@ CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -297,7 +349,11 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile }
+export default compose(
+  withTheme(),
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    { createProfile, getCurrentProfile }
+  )
 )(withRouter(CreateProfile));
