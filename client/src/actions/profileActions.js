@@ -11,11 +11,13 @@ import {
   GET_EDUCATION
 } from "./types";
 
+const URI = "https://apibeta.tetoka.co";
+
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get("/api/profile")
+    .get(`${URI}/api/profile`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -34,7 +36,7 @@ export const getCurrentProfile = () => dispatch => {
 export const getProfileByHandle = handle => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get(`/api/profile/handle/${handle}`)
+    .get(`${URI}/api/profile/handle/${handle}`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -53,7 +55,7 @@ export const getProfileByHandle = handle => dispatch => {
 export const getProfiles = () => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get("/api/profile/all")
+    .get(`${URI}/api/profile/all`)
     .then(res =>
       dispatch({
         type: GET_PROFILES,
@@ -71,7 +73,7 @@ export const getProfiles = () => dispatch => {
 // Create Profile
 export const createProfile = (profileData, history) => dispatch => {
   axios
-    .post("/api/profile", profileData)
+    .post(`${URI}/api/profile`, profileData)
     .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
@@ -84,7 +86,7 @@ export const createProfile = (profileData, history) => dispatch => {
 // Add Experience
 export const addExperience = (profileData, history) => dispatch => {
   axios
-    .post("/api/profile/experience", profileData)
+    .post(`${URI}/api/profile/experience`, profileData)
     .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
@@ -97,7 +99,7 @@ export const addExperience = (profileData, history) => dispatch => {
 // Add Education
 export const addEducation = (eduData, history) => dispatch => {
   axios
-    .post("/api/profile/education", eduData)
+    .post(`${URI}/api/profile/education`, eduData)
     .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
@@ -110,7 +112,7 @@ export const addEducation = (eduData, history) => dispatch => {
 // Delete Experience
 export const deleteExperience = id => dispatch => {
   axios
-    .delete(`/api/profile/experience/${id}`)
+    .delete(`${URI}/api/profile/experience/${id}`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -129,7 +131,7 @@ export const deleteExperience = id => dispatch => {
 export const getExperienceById = handle => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get(`/api/profile/handle/${handle}`)
+    .get(`${URI}/api/profile/handle/${handle}`)
     .then(res =>
       dispatch({
         type: GET_EXPERIENCE,
@@ -147,7 +149,7 @@ export const getExperienceById = handle => dispatch => {
 // Edit Experience
 export const editExperience = (id, expData, history) => dispatch => {
   axios
-    .post(`/api/profile/experience/${id}`, expData)
+    .post(`${URI}/api/profile/experience/${id}`, expData)
 
     .then(res => history.push("/dashboard"))
     .catch(err =>
@@ -162,7 +164,7 @@ export const editExperience = (id, expData, history) => dispatch => {
 export const getEducationById = id => dispatch => {
   dispatch(setProfileLoading());
   axios
-    .get(`/api/profile/education/${id}`)
+    .get(`${URI}/api/profile/education/${id}`)
     .then(res =>
       dispatch({
         type: GET_EDUCATION,
@@ -180,7 +182,7 @@ export const getEducationById = id => dispatch => {
 // Edit Education
 export const editEducation = (id, eduData, history) => dispatch => {
   axios
-    .post(`/api/profile/education/${id}`, eduData)
+    .post(`${URI}/api/profile/education/${id}`, eduData)
     .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
@@ -193,7 +195,7 @@ export const editEducation = (id, eduData, history) => dispatch => {
 // Delete Education
 export const deleteEducation = id => dispatch => {
   axios
-    .delete(`/api/profile/education/${id}`)
+    .delete(`${URI}/api/profile/education/${id}`)
     .then(res =>
       dispatch({
         type: GET_PROFILE,
@@ -212,7 +214,7 @@ export const deleteEducation = id => dispatch => {
 export const deleteAccount = () => dispatch => {
   if (window.confirm("Are you sure? This can Not be undone!")) {
     axios
-      .delete("/api/profile")
+      .delete(`${URI}/api/profile`)
       .then(res =>
         dispatch({
           type: SET_CURRENT_USER,
