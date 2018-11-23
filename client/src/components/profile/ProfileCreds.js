@@ -41,25 +41,23 @@ class ProfileCreds extends Component {
               <Moment format="YYYY/MM/DD">{exp.to}</Moment>
             )}
           </Typography>
-          <Typography paragraph>
-            <Typography variant="subtitle1">Position:</Typography> {exp.title}
-          </Typography>
-          <Typography paragraph>
+          <div>
+            <Typography variant="subtitle1">Position: {exp.title}</Typography>
+          </div>
+          <div>
             {exp.locaton === "" ? null : (
-              <Typography paragraph>
-                <Typography variant="subtitle1">Location:</Typography>
-                {exp.location}
+              <Typography variant="subtitle1">
+                Location: {exp.location}
               </Typography>
             )}
-          </Typography>
-          <Typography>
+          </div>
+          <div>
             {exp.description === "" ? null : (
-              <Typography paragraph>
-                <Typography variant="subtitle1">Description: </Typography>
-                {exp.description}
+              <Typography variant="subtitle1">
+                Description: {exp.description}
               </Typography>
             )}
-          </Typography>
+          </div>
         </CardContent>
       </Card>
     ));
@@ -76,21 +74,21 @@ class ProfileCreds extends Component {
               <Moment format="YYYY/MM/DD">{edu.to}</Moment>
             )}
           </Typography>
-          <Typography>
-            <Typography variant="subtitle1">Degree:</Typography> {edu.degree}
-          </Typography>
-          <Typography>
-            <Typography variant="subtitle1">Field of Study:</Typography>{" "}
-            {edu.fieldofstudy}
-          </Typography>
-          <Typography>
+          <div>
+            <Typography variant="subtitle1">Degree: {edu.degree}</Typography>
+          </div>
+          <div>
+            <Typography variant="subtitle1">
+              Field of Study: {edu.fieldofstudy}
+            </Typography>
+          </div>
+          <div>
             {edu.description === "" ? null : (
-              <Typography paragraph>
-                <Typography variant="subtitle1">Description: </Typography>
-                {edu.description}
+              <Typography variant="subtitle1">
+                Description: {edu.description}{" "}
               </Typography>
             )}
-          </Typography>
+          </div>
         </CardContent>
       </Card>
     ));

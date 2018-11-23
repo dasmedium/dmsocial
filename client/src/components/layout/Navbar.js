@@ -36,7 +36,8 @@ const styles = {
     flexGrow: 1
   },
   flex: {
-    flex: 1
+    flex: 1,
+    textDecoration: "none"
   },
   menuButton: {
     marginLeft: -12,
@@ -44,6 +45,9 @@ const styles = {
   },
   list: {
     width: 250
+  },
+  button: {
+    color: "#ffffff"
   }
 };
 
@@ -57,7 +61,13 @@ class Navbar extends Component {
     };
 
     this.onLogoutClick = this.onLogoutClick.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
+  // componentWillUpdate() {
+  //   this.setState({ anchorEl: null });
+  // }
 
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -69,6 +79,7 @@ class Navbar extends Component {
   }
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
+    setTimeout(this.handleClose, 2000);
   };
 
   handleClose = () => {
@@ -121,7 +132,7 @@ class Navbar extends Component {
     );
 
     function ListItemLinkProfile(props) {
-      const { primary, to } = props;
+      const { primary, onClick } = props;
 
       return (
         <li>
@@ -177,9 +188,23 @@ class Navbar extends Component {
               variant="title"
               color="inherit"
               className={classes.flex}
+              component={Link}
+              to={"/"}
             >
               Tetoka
             </Typography>
+            {isAuthenticated ? (
+              <div>
+                <Button
+                  component={Link}
+                  to="/profiles"
+                  variant="text"
+                  className={classes.button}
+                >
+                  Members{" "}
+                </Button>
+              </div>
+            ) : null}
             {isAuthenticated ? (
               <div>
                 <IconButton
@@ -220,11 +245,21 @@ class Navbar extends Component {
               </div>
             ) : (
               <div>
-                <Button className={classes.button} href="/login">
-                  <Typography>Login</Typography>
+                <Button
+                  className={classes.button}
+                  variant="text"
+                  component={Link}
+                  to="/login"
+                >
+                  Login
                 </Button>
-                <Button href="/register">
-                  <Typography>Sign Up</Typography>
+                <Button
+                  className={classes.button}
+                  component={Link}
+                  to="/register"
+                  variant="text"
+                >
+                  Sign Up
                 </Button>
               </div>
             )}

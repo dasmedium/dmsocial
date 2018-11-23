@@ -47,19 +47,19 @@ class ProfileAbout extends Component {
       <div className={classes.root}>
         <Grid item xs={12}>
           <Typography variant="h4">{firstName}'s Bio</Typography>
-          <Typography paragraph>
+          <div>
             {isEmpty(profile.bio) ? (
               <Typography variant="body1">
                 {firstName} does not have a bio.
               </Typography>
             ) : (
-              <Typography paragraph>{profile.bio}</Typography>
+              <Typography variant="body1">{profile.bio}</Typography>
             )}
-          </Typography>
+          </div>
           <hr />
           <Typography variant="h4">Skill Set</Typography>
 
-          <Grid item xs={12} justify="center" className={classes.chipdiv}>
+          <Grid item xs={12} className={classes.chipdiv}>
             {skills}
           </Grid>
         </Grid>

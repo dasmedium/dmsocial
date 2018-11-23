@@ -15,7 +15,7 @@ const styles = {
 function Footer(props) {
   const { classes } = props;
   return (
-    <Grid item xs={12} spacing={24} className={classes.root}>
+    <Grid item xs={12} className={classes.root}>
       <Typography variant="body1" align="center" className={classes.root}>
         Copyright &copy; {new Date().getFullYear()} Das Medium Inc.
       </Typography>

@@ -48,11 +48,14 @@ class Profile extends Component {
         <div className={classes.root}>
           <Grid container>
             <Grid item xs={6}>
-              <Link to="/profiles">
-                <Button variant="contained" className={classes.button}>
-                  Back to Profiles{" "}
-                </Button>
-              </Link>
+              <Button
+                component={Link}
+                to="/profiles"
+                variant="outlined"
+                className={classes.button}
+              >
+                All Profiles{" "}
+              </Button>
             </Grid>
             <Grid item xs={6} />
           </Grid>
