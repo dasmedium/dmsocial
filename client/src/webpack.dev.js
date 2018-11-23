@@ -6,7 +6,7 @@ module.exports = merge(common, {
   devtool: "inline-source-map",
   devServer: {
     proxy: {
-      "/api": "http://localhost:5000"
+      "/api": "https://apibeta.tetoka.co"
     },
     contentBase: "./build",
     open: true,

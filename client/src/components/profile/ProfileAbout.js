@@ -1,9 +1,33 @@
 import React, { Component } from "react";
+import compose from "recompose/compose";
 import PropTypes from "prop-types";
 import isEmpty from "../../validation/is-empty";
+import {
+  Typography,
+  withStyles,
+  Chip,
+  Grid,
+  withTheme
+} from "@material-ui/core";
+import Done from "@material-ui/icons/Done";
+
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
+  },
+  chip: {
+    margin: theme.spacing.unit
+  },
+  chipdiv: {
+    flexGrow: 1
+  }
+});
 
 class ProfileAbout extends Component {
   render() {
+    const { classes } = this.props;
     const { profile } = this.props;
 
     // Get first name
@@ -11,40 +35,45 @@ class ProfileAbout extends Component {
 
     // Skill List
     const skills = profile.skills.map((skill, index) => (
-      <div key={index} className="p-3">
-        <i className="fa fa-check" />
-        {skill}
-      </div>
+      <Chip
+        label={skill}
+        key={index}
+        className={classes.chip}
+        icon={<Done />}
+      />
     ));
 
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <div className="card card-body bg-light mb-3">
-            <h3 className="text-center text-info">{firstName}'s Bio</h3>
-            <p className="lead">
-              {isEmpty(profile.bio) ? (
-                <span>{firstName} does not have a bio.</span>
-              ) : (
-                <span>{profile.bio}</span>
-              )}
-            </p>
-            <hr />
-            <h3 className="text-center text-info">Skill Set</h3>
-            <div className="row">
-              <div className="d-flex flex-wrap justify-content-center align-items-center">
-                {skills}
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className={classes.root}>
+        <Grid item xs={12}>
+          <Typography variant="h4">{firstName}'s Bio</Typography>
+          <Typography paragraph>
+            {isEmpty(profile.bio) ? (
+              <Typography variant="body1">
+                {firstName} does not have a bio.
+              </Typography>
+            ) : (
+              <Typography paragraph>{profile.bio}</Typography>
+            )}
+          </Typography>
+          <hr />
+          <Typography variant="h4">Skill Set</Typography>
+
+          <Grid item xs={12} justify="center" className={classes.chipdiv}>
+            {skills}
+          </Grid>
+        </Grid>
       </div>
     );
   }
 }
 
 ProfileAbout.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default ProfileAbout;
+export default compose(
+  withStyles(styles),
+  withTheme()
+)(ProfileAbout);

@@ -10,24 +10,26 @@ import {
 import compose from "recompose/compose";
 
 //Material imports
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import MenuList from "@material-ui/core/MenuList";
-import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
-
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+import {
+  Avatar,
+  Button,
+  Menu,
+  MenuItem,
+  IconButton,
+  Typography,
+  Toolbar,
+  AppBar,
+  List,
+  ListItem,
+  Divider,
+  Drawer,
+  ListItemText,
+  ListItemIcon,
+  withStyles
+} from "@material-ui/core";
 
 const styles = {
   root: {
@@ -39,6 +41,9 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  list: {
+    width: 250
   }
 };
 
@@ -47,7 +52,8 @@ class Navbar extends Component {
     super(props);
     this.state = {
       anchorEl: null,
-      profile: {}
+      profile: {},
+      drawer: false
     };
 
     this.onLogoutClick = this.onLogoutClick.bind(this);
@@ -69,6 +75,12 @@ class Navbar extends Component {
     this.setState({ anchorEl: null });
   };
 
+  toggleDrawer = (drawer, open) => () => {
+    this.setState({
+      drawer: open
+    });
+  };
+
   onLogoutClick(e) {
     e.preventDefault();
     this.props.clearCurrentProfile();
@@ -81,6 +93,32 @@ class Navbar extends Component {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const { profile } = this.props.profile;
+
+    const sideList = (
+      <div className={classes.list}>
+        <List>
+          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["All mail", "Trash", "Spam"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    );
 
     function ListItemLinkProfile(props) {
       const { primary, to } = props;
@@ -109,13 +147,32 @@ class Navbar extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
+            {isAuthenticated ? (
+              <div>
+                <IconButton
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Menu"
+                  onClick={this.toggleDrawer("drawer", true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </div>
+            ) : null}
+
+            <Drawer
+              open={this.state.drawer}
+              onClose={this.toggleDrawer("drawer", false)}
             >
-              <MenuIcon />
-            </IconButton>
+              <div
+                tabIndex={0}
+                role="button"
+                onClick={this.toggleDrawer("drawer", false)}
+                onKeyDown={this.toggleDrawer("drawer", false)}
+              >
+                {sideList}
+              </div>
+            </Drawer>
             <Typography
               variant="title"
               color="inherit"
