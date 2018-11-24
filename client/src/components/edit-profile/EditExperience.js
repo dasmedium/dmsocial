@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import compose from "recompose/compose";
 import _ from "lodash";
 import TextFieldGroup from "../common/TextFieldGroup";
-import TextAreaFielGroup from "../common/TextAreaFieldGroup";
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -10,6 +11,21 @@ import {
   editExperience
 } from "../../actions/profileActions";
 import isEmpty from "../../validation/is-empty";
+import {
+  Typography,
+  Grid,
+  Button,
+  FormControlLabel,
+  Checkbox,
+  withTheme,
+  withStyles
+} from "@material-ui/core";
+
+const styles = theme => ({
+  root: {
+    margin: theme.spacing.unit
+  }
+});
 
 class AddExperience extends Component {
   constructor(props) {
@@ -98,87 +114,94 @@ class AddExperience extends Component {
 
   render() {
     const { errors } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div className="add-experience">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn-btn-light">
-                Go Back
-              </Link>
-              <h2 className="display-4 text-center">Edit your experience.</h2>
-              <p className="lead text-center">
-                Edit your {this.state.title} position, location or add more
-                details about your involvement.
-              </p>
-              <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="* Company"
-                  name="company"
-                  value={this.state.company}
-                  onChange={this.onChange}
-                  error={errors.company}
-                />
-                <TextFieldGroup
-                  placeholder="* Job Title"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.onChange}
-                  error={errors.title}
-                />
-                <TextFieldGroup
-                  placeholder="Location"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.onChange}
-                  error={errors.location}
-                />
-                <h6>From Date</h6>
-                <TextFieldGroup
-                  name="from"
-                  type="date"
-                  value={this.state.from}
-                  onChange={this.onChange}
-                  error={errors.from}
-                />
-                <h6>To Date</h6>
-                <TextFieldGroup
-                  name="to"
-                  type="date"
-                  value={this.state.to}
-                  onChange={this.onChange}
-                  error={errors.to}
-                  disabled={this.state.disabled ? "disabled" : ""}
-                />
-                <div className="form-check mb-4">
-                  <input
+      <div className={classes.root}>
+        <Grid container justify="center">
+          <Grid item lg={12}>
+            <Button component={Link} to="/dashboard" variant="contained">
+              Go Back
+            </Button>
+            <Typography variant="h4" align="center">
+              Edit your experience.
+            </Typography>
+            <Typography variant="body1">
+              Edit your {this.state.title} position, location or add more
+              details about your involvement.
+            </Typography>
+            <Typography variant="caption">* = required fields</Typography>
+            <form onSubmit={this.onSubmit}>
+              <TextFieldGroup
+                placeholder="* Company"
+                label="company"
+                value={this.state.company}
+                onChange={this.onChange}
+                error={errors.company}
+              />
+              <TextFieldGroup
+                placeholder="* Job Title"
+                label="title"
+                value={this.state.title}
+                onChange={this.onChange}
+                error={errors.title}
+              />
+              <TextFieldGroup
+                placeholder="Location"
+                label="location"
+                value={this.state.location}
+                onChange={this.onChange}
+                error={errors.location}
+              />
+
+              <TextFieldGroup
+                label="from"
+                type="date"
+                value={this.state.from}
+                onChange={this.onChange}
+                error={errors.from}
+              />
+
+              <TextFieldGroup
+                label="to"
+                type="date"
+                value={this.state.to}
+                onChange={this.onChange}
+                error={errors.to}
+                disabled={this.state.disabled ? "disabled" : ""}
+              />
+              <FormControlLabel
+                label="Current Job"
+                control={
+                  <Checkbox
+                    color="primary"
                     type="checkbox"
-                    className="form-check-input"
-                    name="current"
+                    id="current"
                     value={this.state.current}
                     checked={this.state.current}
                     onChange={this.onCheck}
                     id="current"
                   />
-                  <label htmlFor="current" className="form-check-label">
-                    Current Job
-                  </label>
-                </div>
-                <TextAreaFielGroup
-                  placeholder="Job Description"
-                  name="description"
-                  value={this.state.description}
-                  onChange={this.onChange}
-                  error={errors.description}
-                  info="Tell us about this position"
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
-          </div>
-        </div>
+                }
+              />
+              <TextAreaFieldGroup
+                placeholder="Job Description"
+                label="Job Description"
+                name="description"
+                value={this.state.description}
+                onChange={this.onChange}
+                error={errors.description}
+                info="Tell us about this position"
+                variant="outlined"
+                multiline={true}
+                fullWidth={true}
+              />
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -188,7 +211,8 @@ AddExperience.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   editExperience: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -196,7 +220,11 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, editExperience }
+export default compose(
+  withTheme(),
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    { getCurrentProfile, editExperience }
+  )
 )(withRouter(AddExperience));

@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import compose from "recompose/compose";
 import PropTypes from "prop-types";
 import Spinner from "../common/Spinner";
 import { getProfiles } from "../../actions/profileActions";
+import { Grid, Typography, withTheme, withStyles } from "@material-ui/core";
 import ProfileItem from "./ProfileItem";
+
+const styles = theme => ({
+  root: {
+    margin: theme.spacing.unit
+  }
+});
 
 class Profiles extends Component {
   componentDidMount() {
@@ -11,6 +19,7 @@ class Profiles extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { profiles, loading } = this.props.profile;
     let profileItems;
 
@@ -22,23 +31,17 @@ class Profiles extends Component {
           <ProfileItem key={profile._id} profile={profile} />
         ));
       } else {
-        profileItems = <h4>No Profiles found</h4>;
+        profileItems = <Typography variant="h4">No Profiles found</Typography>;
       }
     }
 
     return (
-      <div className="profiles">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4 text-center">Member Profiles</h1>
-              <p className="lead text-center">
-                Browse and connect with educators and developers
-              </p>
-              {profileItems}
-            </div>
-          </div>
-        </div>
+      <div className={classes.root}>
+        <Grid container justify="center">
+          <Grid item lg="auto">
+            {profileItems}
+          </Grid>
+        </Grid>
       </div>
     );
   }
@@ -46,14 +49,19 @@ class Profiles extends Component {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfiles }
+export default compose(
+  withStyles(styles),
+  withTheme(),
+  connect(
+    mapStateToProps,
+    { getProfiles }
+  )
 )(Profiles);

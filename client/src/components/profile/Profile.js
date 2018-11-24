@@ -46,19 +46,6 @@ class Profile extends Component {
     } else {
       profileContent = (
         <div className={classes.root}>
-          <Grid container>
-            <Grid item xs={6}>
-              <Button
-                component={Link}
-                to="/profiles"
-                variant="outlined"
-                className={classes.button}
-              >
-                All Profiles{" "}
-              </Button>
-            </Grid>
-            <Grid item xs={6} />
-          </Grid>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
           <ProfileCreds

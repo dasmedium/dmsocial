@@ -32,7 +32,6 @@ import EditEducation from "./components/edit-profile/EditEducation";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import theme from "./components/material-ui/theme";
 import { Grid } from "@material-ui/core";
-
 // Check for token
 if (localStorage.jwtToken) {
   // Set auth token header auth

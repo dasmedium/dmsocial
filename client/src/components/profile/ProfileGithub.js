@@ -39,6 +39,7 @@ class ProfileGithub extends Component {
     };
   }
 
+  // Possible memory leak here.
   componentDidMount() {
     const { username } = this.props;
     const { count, sort, clientId, clientSecret } = this.state;

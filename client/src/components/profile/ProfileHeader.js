@@ -7,16 +7,15 @@ import isEmpty from "../../validation/is-empty";
 import {
   Avatar,
   Card,
-  CardHeader,
   CardContent,
   Grid,
   Icon,
   withStyles,
   withTheme,
   Typography,
-  CardMedia,
   Button
 } from "@material-ui/core";
+import Face from "@material-ui/icons/Face";
 
 const styles = theme => ({
   root: {
@@ -52,23 +51,48 @@ class ProfileHeader extends Component {
   render() {
     const { profile } = this.props;
     const { classes } = this.props;
-    const avatar = (
-      <Avatar
-        src={profile.user.avatar}
-        alt=""
-        className={classNames(classes.avatar, classes.bigAvatar)}
-      />
-    );
+
+    const AvatarIcon = () => {
+      if (profile.user !== null) {
+        return (
+          <Avatar
+            className={classNames(classes.avatar, classes.bigAvatar)}
+            src={profile.user.avatar}
+          />
+        );
+      } else {
+        return (
+          <Avatar className={classNames(classes.avatar, classes.bigAvatar)}>
+            <Face />
+          </Avatar>
+        );
+      }
+    };
+    const UserName = () => {
+      if (profile.user !== null) {
+        return profile.user.name;
+      } else {
+        return "Inactive User";
+      }
+    };
+
+    // const avatar = (
+    //   <Avatar
+    //     src={profile.user.avatar}
+    //     alt=""
+    //     className={classNames(classes.avatar, classes.bigAvatar)}
+    //   />
+    // );
 
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
           <CardContent>
             <Grid container justify="center">
-              <div>{avatar}</div>
+              <AvatarIcon />
             </Grid>
             <Typography align="center" variant="h3">
-              {profile.user.name}
+              <UserName />
             </Typography>
             <Typography align="center" variant="title">
               {profile.status}{" "}
@@ -90,7 +114,7 @@ class ProfileHeader extends Component {
             )}
             <Grid container justify="center">
               {isEmpty(profile.website) ? null : (
-                <Button component={Link} to={profile.website}>
+                <Button href={profile.website}>
                   <Icon
                     className={classNames(
                       classes.icon,
@@ -103,7 +127,7 @@ class ProfileHeader extends Component {
               )}
 
               {isEmpty(profile.social && profile.social.twitter) ? null : (
-                <Button component={Link} to={profile.social.twitter}>
+                <Button href={profile.social.twitter}>
                   <Icon
                     className={classNames(
                       classes.icon,
@@ -116,7 +140,7 @@ class ProfileHeader extends Component {
               )}
 
               {isEmpty(profile.social && profile.social.facebook) ? null : (
-                <Button component={Link} to={profile.social.facebook}>
+                <Button href={profile.social.facebook}>
                   <Icon
                     className={classNames(
                       classes.icon,
@@ -129,7 +153,7 @@ class ProfileHeader extends Component {
               )}
 
               {isEmpty(profile.social && profile.social.linkedin) ? null : (
-                <Button component={Link} to={profile.social.linkedin}>
+                <Button href={profile.social.linkedin}>
                   <Icon
                     className={classNames(
                       classes.icon,
@@ -142,7 +166,7 @@ class ProfileHeader extends Component {
               )}
 
               {isEmpty(profile.social && profile.social.youtube) ? null : (
-                <Button component={Link} to={profile.social.youtube}>
+                <Button href={profile.social.youtube}>
                   <Icon
                     className={classNames(
                       classes.icon,
@@ -155,7 +179,7 @@ class ProfileHeader extends Component {
               )}
 
               {isEmpty(profile.social && profile.social.instagram) ? null : (
-                <Button component={Link} to={profile.social.instagram}>
+                <Button href={profile.social.instagram}>
                   <Icon
                     className={classNames(
                       classes.icon,

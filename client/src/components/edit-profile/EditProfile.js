@@ -229,6 +229,7 @@ class CreateProfile extends Component {
             <form onSubmit={this.onSubmit}>
               <TextFieldGroup
                 placeholder="* Profile Handle"
+                type="text"
                 label="* Profile Handle"
                 name="handle"
                 value={this.state.handle}
@@ -239,6 +240,7 @@ class CreateProfile extends Component {
               />
               <SelectListGroup
                 placeholder="Status"
+                type="text"
                 label="Status"
                 name="status"
                 value={this.state.status}
@@ -250,6 +252,7 @@ class CreateProfile extends Component {
               />
               <TextFieldGroup
                 placeholder="Company"
+                type="text"
                 label="Company"
                 name="company"
                 value={this.state.company}
@@ -260,6 +263,7 @@ class CreateProfile extends Component {
               />
               <TextFieldGroup
                 placeholder="Website"
+                type="text"
                 label="Website"
                 name="website"
                 value={this.state.website}
@@ -270,6 +274,7 @@ class CreateProfile extends Component {
               />
               <TextFieldGroup
                 placeholder="Location"
+                type="text"
                 label="Location"
                 name="location"
                 value={this.state.location}
@@ -280,6 +285,7 @@ class CreateProfile extends Component {
               />
               <TextFieldGroup
                 placeholder="Skills"
+                type="text"
                 label="Skills"
                 name="skills"
                 value={this.state.skills}
@@ -290,6 +296,7 @@ class CreateProfile extends Component {
               />
               <TextFieldGroup
                 placeholder="Github Username"
+                type="text"
                 label="Github Username"
                 name="githubusername"
                 value={this.state.githubusername}
@@ -300,6 +307,7 @@ class CreateProfile extends Component {
               />
               <TextAreaFieldGroup
                 placeholder="Short Bio"
+                type="text"
                 label="Short Bio"
                 name="bio"
                 value={this.state.bio}
@@ -325,7 +333,11 @@ class CreateProfile extends Component {
               <Typography variant="caption">Optional</Typography>
 
               {socialInputs}
-              <Button variant="contained" className={classes.button}>
+              <Button
+                variant="contained"
+                className={classes.button}
+                type="submit"
+              >
                 Submit
               </Button>
             </form>

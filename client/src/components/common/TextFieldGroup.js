@@ -59,7 +59,7 @@ class TextFieldGroup extends Component {
 }
 
 TextFieldGroup.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   info: PropTypes.string,
